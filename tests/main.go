@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/awalterschulze/gographviz"
 )
 
 type Summary struct {
@@ -59,11 +61,33 @@ func serialize() (Summary, []Step) {
 	return summary, steps
 }
 
-func main() {
+func GenerateGraph() {
+	graphAst, _ := gographviz.ParseString(`digraph G {}`)
+	graph := gographviz.NewGraph()
+	if err := gographviz.Analyse(graphAst, graph); err != nil {
+		panic(err)
+	}
+	var x string = "X"
+	graph.AddNode("G", x, nil)
+	graph.AddNode("G", "b", nil)
+	graph.AddNode("G", "c", nil)
+	graph.AddEdge(x, "b", true, nil)
+	graph.AddEdge("b", "c", true, nil)
+	output := graph.String()
+	//g.Edge(n2, n1, "back").Attr("color", "red")
 
-	summary, steps := serialize()
+	fmt.Println(output)
+}
+func PrintJson(steps []Step, summary Summary) {
 	for _, v := range steps {
 		fmt.Println(v)
 	}
 	fmt.Println(summary)
+}
+
+func main() {
+
+	// summary, steps := serialize()
+	// PrintJson(steps, summary)
+	GenerateGraph()
 }
