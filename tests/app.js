@@ -10,14 +10,14 @@ var input1_code2 = '0x60fe47b100000000000000000000000000000000000000000000000000
 var input2_code2 = '0x60fe47b10000000000000000000000000000000000000000000000000000000000000000'
 
 vm.on('step', function (data) {
-    console.log(`[VM ] -> PC:${data.pc} ${data.opcode.name}`)
+    console.log(`[VM ] -> PC:${data.pc.toString(16)} ${data.opcode.name}`)
   })
   
 
 vm.runCode({
     code: Buffer.from(code2, 'hex'), // code needs to be a Buffer
-    data: Buffer.from('42345234234','hex'),
+    data: Buffer.from(input2_code2,'hex'),
     gasLimit: Buffer.from('ffffffff', 'hex')
   }, function(err, results){
-    console.log('returned: ' + results.return.toString('hex'));
+    console.log('Error: ' +JSON.stringify(results.exceptionError.error))
   })

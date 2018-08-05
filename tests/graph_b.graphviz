@@ -1,0 +1,30 @@
+digraph porosity {
+rankdir = TB;
+size = "12"
+graph[fontname = Courier, fontsize = 10.0, labeljust = l, nojustify = true];node[shape = record];
+    "0x00000000"[label = "0x00000000 60 80                      PUSH1 80 \l0x00000002 60 40                      PUSH1 40 \l0x00000004 52                         MSTORE \l0x00000005 60 04                      PUSH1 04 \l0x00000007 36                         CALLDATASIZE \l0x00000008 10                         LT \l0x00000009 60 3e                      PUSH1 3e \l0x0000000b 57                         JUMPI \l"];
+    "0x00000000" -> "0x0000000c" [color="red"];
+    "0x00000000" -> "0x0000003e" [color="green"];
+    "0x0000000c"[label = "0x0000000c 63 ff  ff  ff  ff          PUSH4 ff ff ff ff \l0x00000011 7c 00  00  00  00  +      PUSH29 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 \l0x0000002f 60 00                      PUSH1 00 \l0x00000031 35                         CALLDATALOAD \l0x00000032 04                         DIV \l0x00000033 16                         AND \l0x00000034 63 b1  47  fe  60          PUSH4 b1 47 fe 60 \l0x00000039 81                         DUP2 \l0x0000003a 14                         EQ \l0x0000003b 60 43                      PUSH1 43 \l0x0000003d 57                         JUMPI \l"];
+    "0x0000000c" -> "0x0000003e" [color="red"];
+    "0x0000000c" -> "0x00000043" [color="green"];
+    "0x0000003e"[label = ""];
+    "0x00000043"[label = "0x00000043 5b                         JUMPDEST \l0x00000044 34                         CALLVALUE \l0x00000045 80                         DUP1 \l0x00000046 15                         ISZERO \l0x00000047 60 4e                      PUSH1 4e \l0x00000049 57                         JUMPI \l"];
+    "0x00000043" -> "0x0000004a" [color="red"];
+    "0x00000043" -> "0x0000004e" [color="green",label="func_60fe47b1"];
+    "0x0000004a"[label = "0x0000004a 60 00                      PUSH1 00 \l0x0000004c 80                         DUP1 \l0x0000004d fd                         REVERT \l"];
+    "0x0000004a" -> "0x0000004e" [color="black"];
+    "0x0000004e"[label = "0x0000004e 5b                         JUMPDEST \l0x0000004f 50                         POP \l0x00000050 60 58                      PUSH1 58 \l0x00000052 60 04                      PUSH1 04 \l0x00000054 35                         CALLDATALOAD \l0x00000055 60 5a                      PUSH1 5a \l0x00000057 56                         JUMP \l"];
+    "0x0000004e" -> "0x0000005a" [color="black"];
+    "0x00000058"[label = "0x00000058 5b                         JUMPDEST \l0x00000059 00                         STOP \l"];
+    "0x0000005a"[label = "0x0000005a 5b                         JUMPDEST \l0x0000005b 80                         DUP1 \l0x0000005c 15                         ISZERO \l0x0000005d 15                         ISZERO \l0x0000005e 60 67                      PUSH1 67 \l0x00000060 57                         JUMPI \l"];
+    "0x0000005a" -> "0x00000061" [color="red"];
+    "0x0000005a" -> "0x00000067" [color="green"];
+    "0x00000061"[label = "0x00000061 50                         POP \l0x00000062 60 01                      PUSH1 01 \l0x00000064 60 6d                      PUSH1 6d \l0x00000066 56                         JUMP \l"];
+    "0x00000061" -> "0x0000006d" [color="black"];
+    "0x00000067"[label = "0x00000067 5b                         JUMPDEST \l0x00000068 60 00                      PUSH1 00 \l0x0000006a 81                         DUP2 \l0x0000006b 90                         SWAP1 \l0x0000006c 55                         SSTORE \l"];
+    "0x00000067" -> "0x0000006d" [color="black"];
+    "0x0000006d"[label = "0x0000006d 5b                         JUMPDEST \l0x0000006e 50                         POP \l0x0000006f 56                         JUMP \l0x00000070 00                         STOP \l"];
+    "0x0000006d" -> "0xdeadbabe" [color="black"];
+}
+
