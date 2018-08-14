@@ -1,4 +1,7 @@
 var VM = require('ethereumjs-vm')
+const ethUtil = require('ethereumjs-util')
+const BN = ethUtil.BN
+
 
 var vm = new VM()
 
@@ -15,22 +18,39 @@ var code4 = '608060405234801561001057600080fd5b50336000806101000a81548173fffffff
 var input1_code2 = '0x60fe47b10000000000000000000000000000000000000000000000000000000000000038'
 var input2_code2 = '0x60fe47b10000000000000000000000000000000000000000000000000000000000000000'
 
-vm.on('step', function (data) {
-    console.log(`[VM ] -> PC:${data.pc.toString(16)} ${data.opcode.name}`)
-  })
+// vm.on('step', function (data) {
+//     console.log(`[VM ] -> PC:${data.pc.toString(16)} ${data.opcode.name}`)
+// })
   
+vm.on('step', (e) => {
+  let hexStack = []
+  hexStack = e.stack.map(item => {
+    return '0x' + new BN(item).toString(16, 0)
+  })
+
+  var opTrace = {
+    'pc': e.pc,
+    'op': e.opcode.opcode,
+    'gas': '0x' + e.gasLeft.toString('hex'),
+    'gasCost': '0x' + e.opcode.fee.toString(16),
+    'stack': hexStack,
+    'depth': e.depth,
+    'opName': e.opcode.name
+  }
+  console.log(JSON.stringify(opTrace))
+})
 
 vm.runCode({
     code: Buffer.from(code3, 'hex'), // code needs to be a Buffer
     data: Buffer.from('0xcdcd77c000000000000000000000000000000000000000000000000000000000000000450000000000000000000000000000000000000000000000000000000000000001','hex'),
     gasLimit: Buffer.from('ffffffff', 'hex')
   }, function(err, results){
-    if(err === null)
+    if(err)
     {
-      console.log("Output: \n"+results.return.toString('hex'))
+      console.log(results.exceptionError)
     }
     else
     {
-      console.log(results.exceptionError)
+      console.log("Output: \n"+results.return.toString('hex'))
     }
   })
