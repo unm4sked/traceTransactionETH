@@ -1,12 +1,16 @@
 var solc = require('solc');
 var fs = require('fs');
 
-var file = "";
 
-fs.readFile('./contracts/test.sol','utf8',function(err,contents) {
-    file.concat(contents)
-});
-console.log(file)
+try{
+    var file = fs.readFileSync(process.argv[2],'utf8');
+}catch(e)
+{
+    console.log('Usage: "node compile.js [path to file]"')
+    console.log('Error: ', e.message );
+    process.exit(1)
+}
+
 var input = 'pragma solidity ^0.4.0;contract Test {uint storedData;function set(uint x) public {if (x == 0){x = 1;} else{storedData = x;}}}'
 
 var output = solc.compile(input, 1)
